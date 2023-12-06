@@ -1,0 +1,51 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Embedding Vega-Lite</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.16.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+  </head>
+  <body>
+    <div id="vis"></div>
+
+    <script type="text/javascript">
+      var yourVlSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width":500,
+    "height": 500,
+    "data":{
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/next/data/us-10m.json",
+      "format": {
+        "type": "topojson",
+        "feature": "counties"
+      }
+    },
+    "transform": [
+      {
+      "calculate": "pad(toString(datum.id), 5, '0', 'left')",
+      "as": "stringId"
+    },
+      {
+        "lookup": "stringId",
+        "from": {
+          "data":{
+            "url": "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+          },
+          "fields": ["cases","county"],
+          "key": "fips"
+        }
+
+      }
+    
+    ],
+    "mark":"geoshape",
+    "projection": {"type": "albersUsa"},
+    "encoding": {"tooltip": {"field":"county"},
+    "color":{"field":"cases", "type": "quantitative","scale":{"type": "log"}}}
+  };
+      vegaEmbed('#vis', yourVlSpec);
+    </script>
+  </body>
+</html>

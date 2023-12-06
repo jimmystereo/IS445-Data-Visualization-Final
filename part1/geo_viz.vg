@@ -1,0 +1,27 @@
+{
+    "width": 500,
+    "height": 300,
+    "data": {
+      "url":   "https://raw.githubusercontent.com/jimmystereo/building_visualization/main/global_power_plant_database.csv"
+    },
+    "projection": {
+      "type": "mercator"
+    },
+    "mark": "circle",
+    "encoding": {
+      "longitude": {
+        "field": "longitude",
+        "type": "quantitative"
+      },
+      "latitude": {
+        "field": "latitude",
+        "type": "quantitative"
+      },
+      "size": {"value": 10}
+    },
+    "config": {
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+  }
